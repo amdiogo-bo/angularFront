@@ -1,0 +1,85 @@
+.rendu{
+    color : green;
+}
+
+.nomRendu{
+    color : red;
+}
+
+.form {
+   display:flex;
+   flex-direction: column;
+   margin:5px;
+}
+
+
+
+mat-list-item {
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 5px;
+}
+
+mat-list-item:hover {
+  background-color: #f5f5f5;
+}
+
+p {
+  margin: 0;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+
+/* style forme ajout*/
+.add-assignment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background: linear-gradient(145deg, #f3f4f6, #e0e7ff);
+}
+
+.form-card {
+  width: 420px;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  background-color: #fff;
+  animation: fadeIn 0.6s ease;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #3f51b5;
+}
+
+.assignment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

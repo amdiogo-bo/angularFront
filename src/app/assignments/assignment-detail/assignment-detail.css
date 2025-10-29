@@ -1,0 +1,62 @@
+:host { display: block; }
+
+/* container actions (MDC classes utilisées par Material v15+/MDC) */
+:host .mat-mdc-card-actions,
+:host .mdc-card__actions,
+:host .mat-card-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+
+/* styles généraux des boutons dans les actions */
+:host .mat-mdc-card-actions button,
+:host .mdc-card__actions button,
+:host .mat-card-actions button {
+  border-radius: 6px;
+  padding: 6px 12px;
+  text-transform: none;
+  transition: transform .06s ease, box-shadow .12s ease;
+}
+
+/* bouton principal */
+:host .mat-mdc-card-actions button[mat-raised-button],
+:host .mdc-card__actions button[mat-raised-button],
+:host .mat-card-actions button[mat-raised-button] {
+  background-color: #1976d2 !important;
+  color: #fff !important;
+  box-shadow: 0 2px 6px rgba(25,118,210,0.22);
+}
+
+/* bouton suppression (classe personnalisée dans le template) */
+:host .btn-delete {
+  background-color: #d32f2f !important;
+  color: #fff !important;
+  border: none;
+}
+:host .btn-delete:hover {
+  background-color: #b71c1c !important;
+  transform: translateY(-1px);
+}
+
+/* bouton plat / close */
+:host button[mat-button] {
+  color: #1976d2 !important;
+}
+
+/* responsive : empilement sur petit écran */
+@media (max-width: 480px) {
+  :host .mat-mdc-card-actions,
+  :host .mdc-card__actions,
+  :host .mat-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  :host .mat-mdc-card-actions button,
+  :host .mdc-card__actions button,
+  :host .mat-card-actions button {
+    width: 100%;
+  }
+}

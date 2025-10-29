@@ -1,0 +1,36 @@
+<!-- <p>assignment-detail works!</p> -->
+<!-- mais pourquoi mat-card ne s'affiche sur le composant -->
+
+@if(assignmentTransmis) {
+
+<mat-card appearance="outlined">
+    <mat-card-header>
+        <mat-card-title>Détail de l'assignment </mat-card-title>
+        <mat-card-subtitle>on pourra ajouter l'image etc.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            Cet assignment est intitulé "{{assignmentTransmis.nom}}" <br>
+            et doit être rendu le {{assignmentTransmis.dateDeRendu | date:'dd/MM/yyyy'}}. <br>
+            blabla...
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <!-- <button mat-button (click)="assignmentTransmis = undefined">CLOSE</button> -->
+        @if (!assignmentTransmis.rendu) {
+                <mat-checkbox (change)="onAssignmentRendu()">Devoir Rendu</mat-checkbox>
+            }
+            
+            <!-- Autres possibilités avec une route “absolue” et donc de la navigation dynamique -->
+            <!-- <nav>
+                <button mat-stroked-button color="primary" 
+                [routerLink]="['/assignment', assignmentTransmis.id, 'edit']">EDIT
+                </button>
+            </nav> -->
+            <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isAdmin()">EDIT
+            </button>
+        <button mat-raised-button class="btn-delete"  color="primary" (click)="onDeleteAssignment()" >DELETE</button>
+
+    </mat-card-actions>
+</mat-card>
+}
