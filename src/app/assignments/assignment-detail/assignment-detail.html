@@ -18,19 +18,23 @@
     <mat-card-actions>
         <!-- <button mat-button (click)="assignmentTransmis = undefined">CLOSE</button> -->
         @if (!assignmentTransmis.rendu) {
-                <mat-checkbox (change)="onAssignmentRendu()">Devoir Rendu</mat-checkbox>
-            }
-            
-            <!-- Autres possibilités avec une route “absolue” et donc de la navigation dynamique -->
-            <!-- <nav>
-                <button mat-stroked-button color="primary" 
-                [routerLink]="['/assignment', assignmentTransmis.id, 'edit']">EDIT
-                </button>
-            </nav> -->
-            <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isAdmin()">EDIT
-            </button>
-        <button mat-raised-button class="btn-delete"  color="primary" (click)="onDeleteAssignment()" >DELETE</button>
+        <mat-checkbox (change)="onAssignmentRendu()">Devoir Rendu</mat-checkbox>
+        }
 
+
+        <!-- <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isAdmin()">EDIT
+            </button> -->
+        <!-- Bouton EDIT -->
+        <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isAdmin()"
+            matTooltip="Réservé aux administrateurs">
+            EDIT
+        </button>
+        <!-- <button mat-raised-button class="btn-delete" color="primary" (click)="onDeleteAssignment()">DELETE</button> -->
+        <!-- Bouton DELETE -->
+        <button mat-raised-button color="warn" (click)="onDeleteAssignment()" [disabled]="!isAdmin()"
+            matTooltip="Réservé aux administrateurs">
+            DELETE
+        </button>
     </mat-card-actions>
 </mat-card>
 }

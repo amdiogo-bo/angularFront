@@ -1,30 +1,39 @@
+
 <!-- <div class="header-actions"> -->
-<!-- navigation vers le composant d'ajout -->
-<!-- <button mat-flat-button color="accent" routerLink="/add">
-    ➕ Ajouter Assignment
-  </button>
-</div> -->
-<mat-list>
-  @for(assignment of assignments; track assignment.nom) {
-  <nav>
-    <a routerLink="/assignment/{{ assignment.id }}">
-      <h3 mat-subheader>{{ assignment.dateDeRendu | date }}</h3>
-      <mat-list-item (click)="onAssignmentClique(assignment)">
-        @if(assignment.rendu) {
-        <p appRendu class="assignment-text">{{ assignment.nom }}✅</p>
+    <!-- navigation vers le composant d'ajout -->
+    <!-- <button mat-flat-button color="accent" routerLink="/add">
+        ➕ Ajouter Assignment
+      </button>
+    </div> -->
+    <mat-card>
+      <mat-card-title>Liste des assignments :</mat-card-title>
+      <mat-card-content class="card-content">
+        <p class="card-title">Nombre d'assignments : {{ assignments.length }}</p>
+        <p class="card-title">Rendu : {{ nombreRendu }}</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-divider></mat-divider>
+    <mat-list>
+      @for(assignment of assignments; track assignment.nom) {
+      <nav>
+        <a routerLink="/assignment/{{ assignment.id }}">
+          <h3 mat-subheader>{{ assignment.dateDeRendu | date }}</h3>
+          <mat-list-item (click)="onAssignmentClique(assignment)">
+            @if(assignment.rendu) {
+            <p appRendu class="assignment-text">{{ assignment.nom }}✅</p>
 
-        }@else {
-        <p appNomRendu class="assignment-text">{{ assignment.nom }} ⚠️</p>
-        }
-      </mat-list-item>
-    </a>
-  </nav>
-  <mat-divider></mat-divider>
-  }
-</mat-list>
+            }@else {
+            <p appNomRendu class="assignment-text">{{ assignment.nom }} ⚠️</p>
+            }
+          </mat-list-item>
+        </a>
+      </nav>
+      <mat-divider></mat-divider>
+      }
+    </mat-list>
 
-<!-- <mat-divider></mat-divider>
-<h2>Détail d'un assignment</h2>
-<app-assignment-detail [assignmentTransmis]="assignmentSelectionne" (deleteAssignment)="onDeleteAssignment($event)"
-  (assignmentRendu)="onAssignmentRendu($event)">
-</app-assignment-detail> -->
+    <!-- <mat-divider></mat-divider>
+    <h2>Détail d'un assignment</h2>
+    <app-assignment-detail [assignmentTransmis]="assignmentSelectionne" (deleteAssignment)="onDeleteAssignment($event)"
+      (assignmentRendu)="onAssignmentRendu($event)">
+    </app-assignment-detail> -->

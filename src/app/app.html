@@ -7,20 +7,41 @@
   <span class="toolbar-title">My App</span>
 
   <div class="toolbar-group" routerLink="/home">
-    <button mat-icon-button class="btn-home" aria-label="Accueil" >
+    <button mat-icon-button class="btn-home" aria-label="Accueil">
       <mat-icon>home</mat-icon>
     </button>
     <span>Accueil</span>
   </div>
-
   <span class="spacer"></span>
 
-  <div class="toolbar-group">
-    <button mat-icon-button aria-label="Connexion">
-      <mat-icon>person</mat-icon>
+  <!-- <div class="toolbar-group">
+    <span *ngIf="authService.isLogged()">
+      Connecté : {{ authService.getCurrentUser() }} ({{ authService.getCurrentRole() }})
+    </span>
+
+    <button *ngIf="!authService.isLogged()" mat-raised-button color="accent" (click)="goToLogin()">
+      Se connecter
     </button>
-    <span>Se connecter</span>
+
+    <button *ngIf="authService.isLogged()" mat-raised-button color="warn" (click)="onLogout()">
+      Déconnexion
+  </button>
+  </div> -->
+  <div class="toolbar-group">
+    <!-- ✅ Affichage dynamique -->
+     <mat-icon>person</mat-icon>
+    <ng-container *ngIf="authService.isLogged(); else notLogged">
+      <span>
+        Connecté : {{ authService.getCurrentUser() }} ({{ authService.getCurrentRole() }})
+      </span>
+      <button mat-raised-button color="warn" (click)="onLogout()">Déconnexion</button>
+    </ng-container>
+
+    <ng-template #notLogged>
+      <button mat-raised-button color="accent" (click)="goToLogin()">Se connecter</button>
+    </ng-template>
   </div>
+
 </mat-toolbar>
 
 <!-- ✅ Container principal Angular Material -->
@@ -35,23 +56,26 @@
       </mat-list-item> -->
       <a mat-list-item routerLink="/home" class="toolbar-link">
         <!-- <mat-icon>list</mat-icon> -->
-         <mat-icon>assignment</mat-icon>
+        <mat-icon>assignment</mat-icon>
         <span>Liste des devoirs</span>
       </a>
       <a mat-list-item routerLink="/add">
-        
-          <mat-icon>add</mat-icon>
-          <span>Ajout d'un devoir</span>
-      
+
+        <mat-icon>add</mat-icon>
+        <span>Ajout d'un devoir</span>
+
       </a>
-      <mat-list-item>
+      <a mat-list-item routerLink="/edit">
+
         <mat-icon>edit</mat-icon>
         <span>Modification d'un devoir</span>
-      </mat-list-item>
-      <mat-list-item>
+      </a>
+      
+      <a mat-list-item routerLink="/DELETE">
+
         <mat-icon>delete</mat-icon>
         <span>Suppression d'un devoir</span>
-      </mat-list-item>
+      </a>
       <mat-list-item>
         <mat-icon>cloud_download</mat-icon>
         <span>Génération de données de test</span>
@@ -66,7 +90,7 @@
         <a routerLink="/home">{{ title }}</a>
       </h1>
       <!-- <app-assignments></app-assignments> -->
-      <mat-slide-toggle color="primary">Login</mat-slide-toggle>
+      <!-- <mat-slide-toggle color="primary">Login</mat-slide-toggle> -->
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

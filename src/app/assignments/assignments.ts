@@ -9,6 +9,8 @@ import { NonRendu } from '../shared/nonRendu';
 import { AssignmentsService } from '../shared/assignments.service';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import {AuthService} from '../shared/auth.service';
 
 
 @Component({
@@ -17,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './assignments.html',
   styleUrls: ['./assignments.css'],
   imports: [CommonModule, MatButtonModule, MatDividerModule, MatListModule, Rendu, NonRendu,
-    RouterModule, MatIconModule
+    RouterModule, MatIconModule, MatCardModule
   ]
 })
 export class Assignments {
@@ -26,7 +28,7 @@ export class Assignments {
   assignmentSelectionne: Assignment | undefined = undefined;
   assignments: Assignment[] = [];
 
-  constructor(private assignmentsService: AssignmentsService) { }
+  constructor(private assignmentsService: AssignmentsService ,public authService: AuthService) { }
   ngOnInit(): void {
     //this.getAssignmenthis.assignments = this.assignmentsService.getAssignments();
     this.getAssignments();
@@ -97,5 +99,10 @@ export class Assignments {
     // On met aussi à jour le détail affiché
     this.assignmentSelectionne = { ...assignment, rendu: true };
   }
+
+   get nombreRendu(): number {
+    return this.assignments.filter(a => a.rendu).length;
+  }
+
 
 }

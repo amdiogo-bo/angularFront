@@ -1,40 +1,72 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Assignment } from '../assignments/assignment.model';
 import { LoggingService } from './logging.service';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssignmentsService {
-  constructor(private loggingService: LoggingService) { }
-  assignments: Assignment[] = [
-    { id: 1, nom: "Devoir Angular", dateDeRendu: new Date('2023-01-01'), rendu: true },
-    { id: 2, nom: "Rapport Java", dateDeRendu: new Date('2025-02-01'), rendu: false },
-    { id: 3, nom: "Rapport Python", dateDeRendu: new Date('2023-03-01'), rendu: false }
-  ];
-  getAssignment(id: number): Observable<Assignment | undefined> {
-    const a = this.assignments.find(a => a.id === id);
-    return of(a);
-  }
+  baseUrl = 'http://localhost:8010/api/assignments';
+
+  constructor(
+    private loggingService: LoggingService,
+    private http: HttpClient
+  ) {}
+
+   assignments: Assignment[] = [];
+
+  // GET: tous les devoirs
   getAssignments(): Observable<Assignment[]> {
-    return of(this.assignments);
+    return this.http.get<Assignment[]>(this.baseUrl);
   }
 
-  addAssignment(assignment: Assignment): Observable<string> {
-    this.assignments.push(assignment);
-    this.loggingService.log(assignment.nom, 'ajouté');
-    return of('Assignment ajouté avec succcès !');
+  // GET: un devoir par ID
+  getAssignment(id: number): Observable<Assignment> {
+    // const a = this.assignments.find(a => a.id === id);
+    return this.http.get<Assignment>(this.baseUrl + '/' + id)
+    .pipe(
+      map(a => {
+        a.nom += "Recu et Transforme avec un pipe";
+        return a;
+      }),
+      tap(() =>{
+        console.log("tap: assignment avec id= " + id + "requete Get envoyer sur MongoDB cloud");
+      }),
+      catchError(this.handleError<Assignment>('## catchError: getAssignments by id avec id=' + id + "a échoué"))
+    );
   }
 
-  updateAssignment(assignment: Assignment): Observable<string> {
-    return of('Assignment modifié avec succcès !');
-  }
-  deleteAssignment(assignment: Assignment): Observable<string> {
-    let pos = this.assignments.indexOf(assignment);
-    this.assignments.splice(pos, 1);
-    return of('Assignment supprimé avec succcès !');
-  }
+  private handleError<T>(operation: any, result?: T) {
+   return (error: any): Observable<T> => {
+     console.log(error); // pour afficher dans la console
+     console.log(operation + ' a échoué ' + error.message);
+
+     return of(result as T);
+   }
+};
 
 
+  // POST: ajout d’un devoir
+  addAssignment(assignment: Assignment): Observable<any> {
+    return this.http.post<Assignment>(this.baseUrl, assignment);
+  }
+
+  // PUT: mise à jour d’un devoir
+  updateAssignment(assignment: Assignment): Observable<any> {
+    return this.http.put<Assignment>(this.baseUrl, assignment);
+  }
+
+  // DELETE: suppression d’un devoir
+  deleteAssignment(assignment: Assignment): Observable<any> {
+
+    this.loggingService.log(assignment.nom , ' sera supprimé.');
+
+    return this.http.delete<Assignment>(this.baseUrl + '/' + assignment._id);
+  }
 }

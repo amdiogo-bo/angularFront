@@ -1,0 +1,17 @@
+<mat-card class="login-card">
+  <h2>Connexion</h2>
+
+  <mat-form-field class="full-width">
+    <mat-label>Nom d'utilisateur</mat-label>
+    <input matInput [(ngModel)]="username" required />
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Mot de passe</mat-label>
+    <input matInput [(ngModel)]="password" type="password" required />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="onLogin()">Se connecter</button>
+
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</mat-card>

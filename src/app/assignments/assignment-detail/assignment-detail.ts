@@ -75,21 +75,44 @@ export class AssignmentDetail implements OnInit {
 
 
 
+onDeleteAssignment() {
+  // if (!this.assignmentTransmis) return;
 
-  onDeleteAssignment() {
-    // On va envoyer un événement au composant père pour qu'il supprime
-    // l'assignment
-    if (!this.assignmentTransmis) return;
-    this.deleteAssignment.emit(this.assignmentTransmis);
+  // this.assignmentsService.deleteAssignment(this.assignmentTransmis!)
+  //   .subscribe({
+  //     next: (reponse) => {
+  //       console.log(reponse.message);
 
-    this.assignmentsService.deleteAssignment(this.assignmentTransmis!)
-      .subscribe(message => console.log(message));
-    this.deleteElement();
-    this.router.navigate(['/home']);
-    // Si on veut que le panneau de détails disparaisse de l'affichage
-    // il faut remettre à null ou undefined this.assignmentTransmis
-    this.assignmentTransmis = undefined;
+  //       // Afficher notification
+  //       this.deleteElement();
+
+  //       // Cacher le panneau de détails
+  //       this.assignmentTransmis = undefined;
+
+  //       // Naviguer vers la home seulement APRES la suppression réussie
+  //       this.router.navigate(['/home']);
+  //     },
+  //     error: (err) => {
+  //       console.error("Erreur suppression :", err);
+  //       this.snackBar.open('Erreur lors de la suppression', 'Fermer', {
+  //         duration: 3000
+  //       });
+  //     }
+  //   });
+  if(this.assignmentTransmis){
+    this.assignmentsService.deleteAssignment(this.assignmentTransmis).
+       subscribe(reponse =>{
+        console.log(reponse.message);
+        this.assignmentTransmis = undefined;
+        
+        //on navige vers la page d'accueil pour afficher la liste mise à jour
+        this.router.navigate(['/home']);
+        // Afficher notification
+        this.deleteElement();
+       })
   }
+}
+
 
   deleteElement(): void {
     this.snackBar.open('Assignment supprimé avec succès !', 'Fermer', {
@@ -114,8 +137,7 @@ export class AssignmentDetail implements OnInit {
 
   isAdmin():boolean{
     // return this.authService.loggedIn;
-    return this.authservice.loggedIn;
-    
+    return this.authservice.getCurrentRole() === 'admin';
   }
 
 
