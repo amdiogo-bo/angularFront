@@ -12,7 +12,8 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class AssignmentsService {
-  baseUrl = 'http://localhost:8010/api/assignments';
+  // baseUrl = 'http://localhost:8010/api/assignments';
+  baseUrl ='https://backendangular-1.onrender.com/api/assignments';
 
   constructor(
     private loggingService: LoggingService,

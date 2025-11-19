@@ -6,7 +6,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { AssignmentsService } from '../../shared/assignments.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../shared/auth.service';
 
@@ -19,8 +19,7 @@ import { AuthService } from '../../shared/auth.service';
     MatCardModule,
     MatCheckboxModule,
     FormsModule,
-    MatButtonModule,
-    RouterLink
+    MatButtonModule
 ],
   templateUrl: './assignment-detail.html',
   styleUrls: ['./assignment-detail.css']
