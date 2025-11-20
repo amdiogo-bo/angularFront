@@ -7,7 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { MatSidenavModule } from '@angular/material/sidenav'; // si tu en utilises un
 import { MatListModule } from '@angular/material/list'; // si tu as une liste Materia
@@ -34,8 +34,7 @@ import { CommonModule } from '@angular/common';
     FormsModule, // 👈 Obligatoire pour [(ngModel)]
     MatCheckboxModule, RouterModule, RouterLink,
   CommonModule,
-  HttpClientModule,
-  BrowserAnimationsModule
+  HttpClientModule
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'
